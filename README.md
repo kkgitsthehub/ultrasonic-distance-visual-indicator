@@ -7,6 +7,10 @@ representing roughly a 10 cm distance range.
 
 ![Completed circuit](images/completed-circuit-closeup-litup.png)
 
+### Code
+
+[Arduino code](ultrasonic_distance_visual_indicator.ino)
+
 ## Why I built it
 
 I had an HC-SR04 ultrasonic sensor that I had never really used, so I decided
