@@ -29,6 +29,7 @@ the project simple and built the LED-based indicator first.
 - HC-SR04 ultrasonic sensor
 - 9 LEDs
 - 9 × 220 Ω resistors
+- Push button
 - Breadboard
 - Jumper wires
 
@@ -43,6 +44,9 @@ the project simple and built the LED-based indicator first.
 **LEDs**
 - D13, D9, D8, D7, D6, D5, D4, D3, D2
 - One 220 Ω resistor for each LED
+
+**Push Button**
+- Button → D10
 
 ## How it works
 
@@ -69,13 +73,56 @@ LED.
 The measured distance is converted into approximately 10 cm ranges, and the
 corresponding number of LEDs is switched ON.
 
+A push button connected to D10 is used to capture and hold the current
+distance indication instead of allowing it to continuously change with new
+sensor readings.
+
 ![Arduino code and test setup](images/code-test.png)
+
+## Latest Update — Push Button
+
+The project was extended with a push button that can hold the current
+distance indication.
+
+### Why I added it
+
+The idea came from a simple real-world measuring tape.
+
+When measuring in a congested or difficult-to-reach space, the tape can be
+locked at the exact measurement point. It can then be moved or pulled out of
+the narrow space while the measurement remains available to read.
+
+I wanted to apply a similar concept here. When the object reaches the desired
+distance, pressing the button captures the current reading and freezes the
+distance indication instead of allowing it to continuously change.
+
+I first tested the push button separately using `digitalRead()` and the
+Serial Monitor, then integrated it with the ultrasonic distance indicator.
+
+During testing, I initially forgot to explicitly configure the button pin
+with `pinMode(button, INPUT)`. The button still worked, which led me to
+investigate why. I learned that Arduino digital pins default to input mode
+after reset unless configured otherwise.
+
+Although the default behaviour allowed it to work, the final code explicitly
+configures D10 as an input so that the intended pin configuration is clear.
+
+This update also gives the project a possible path towards storing captured
+measurements in memory and reviewing them later.
+
+![Push button integrated into the project](images/push-button-integration.jpg)
+
+![Push button close-up](images/push-button-closeup.jpg)
 
 ## Build
 
 The circuit was built on a breadboard, with each LED connected through its own
 220 Ω current-limiting resistor. The HC-SR04 is connected directly to the
 Arduino for the trigger and echo signals.
+
+The image below shows an early wiring mistake I made by directly connecting
+resistor legs instead of using jumper wires. The connections kept coming loose,
+so I eventually rewired the circuit properly.
 
 ![Initial lazy wiring](images/initial-wiring.jpg)
 
@@ -106,7 +153,7 @@ distance during my testing.
 The Serial Monitor was also useful while checking whether the calculated
 distance matched the physical position of the object.
 
-![Serial Monitor testing](images/serial-monitor-test.png)
+![Push button testing and Serial Monitor output](images/updated-serial-monitor-test.jpg)
 
 I ran into a few simple problems while building it. I initially tried to
 save wiring time by directly using the resistor legs between the breadboard
@@ -119,14 +166,18 @@ my LED range/iteration logic.
 
 ## Current Status
 
-The basic 9-LED distance indicator is working.
+The 9-LED distance indicator is working, with a push button on D10 added to
+hold the current distance indication.
 
 The current implementation uses a 100 cm range for the LED indication.
 The HC-SR04 itself is capable of a larger measurement range, but that is not
 currently used by this implementation.
 
+The push button has been tested separately and integrated successfully with
+the complete circuit.
+
 ## Future Ideas
 
-- Add a push button/touch sensor to switch display modes
-- Add a mode where the current distance can be locked
+- Store captured distance measurements in memory for later review
+- Experiment with different display modes
 - Experiment with other physical outputs
