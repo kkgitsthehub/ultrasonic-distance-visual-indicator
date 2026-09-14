@@ -164,6 +164,10 @@ I also initially suspected a faulty LED when the last LED didn't light up.
 After trying several LEDs, I found that the actual problem was a mistake in
 my LED range/iteration logic.
 
+### Working Demonstration
+
+[▶️ Watch the working demonstration](images/working-demo.mp4)
+
 ## Current Status
 
 The 9-LED distance indicator is working, with a push button on D10 added to
