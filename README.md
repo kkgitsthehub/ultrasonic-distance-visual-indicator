@@ -166,7 +166,7 @@ my LED range/iteration logic.
 
 ### Working Demonstration
 
-[▶️ Watch the working demonstration](images/working-demo.mp4)
+[▶️ Watch the working demonstration](images/working-demo (1).mp4)
 
 ## Current Status
 
